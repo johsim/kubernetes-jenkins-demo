@@ -17,4 +17,4 @@ svc:
 	kubectl apply -f svc.yaml
 	minikube service jenkins --url
 
-all: pv deploy svc
+all: init pv build deploy svc

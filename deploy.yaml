@@ -25,6 +25,8 @@ spec:
           volumeMounts: 
             - name: jenkins-data
               mountPath: /var/jenkins_home
+            - mountPath: /var/jenkins_home/init.groovy.d
+              name: jenkins-configuration-scripts
           livenessProbe:
             httpGet:
               path: /login
@@ -32,6 +34,8 @@ spec:
             initialDelaySeconds: 60
             timeoutSeconds: 5
       volumes: 
+        - name: jenkins-configuration-scripts
+          emptyDir: {}
         - name: jenkins-data
           persistentVolumeClaim:
             claimName: jenkins
