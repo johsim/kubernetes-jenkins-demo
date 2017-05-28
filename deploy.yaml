@@ -17,11 +17,11 @@ spec:
           image: jenkins:demo
           imagePullPolicy: Never
           ports: 
-            - containerPort: 8080
-            - containerPort: 50000
+            - containerPort: 8080  # Jenkins GUI
+            - containerPort: 50000 # JNLP for agents to connect
           env:
             - name: JAVA_OPTS
-              value: "-Djenkins.install.runSetupWizard=false -Djenkins.useSecurity=false"
+              value: "-Djenkins.install.runSetupWizard=false"
           volumeMounts: 
             - name: jenkins-data
               mountPath: /var/jenkins_home
@@ -34,7 +34,7 @@ spec:
             initialDelaySeconds: 60
             timeoutSeconds: 5
       volumes: 
-        - name: jenkins-configuration-scripts
+        - name: jenkins-configuration-scripts # Ensure the scripts from the docker image are applied
           emptyDir: {}
         - name: jenkins-data
           persistentVolumeClaim:

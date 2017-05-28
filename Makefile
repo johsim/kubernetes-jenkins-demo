@@ -6,7 +6,7 @@ init:
 	minikube ssh sudo -- mkdir -p /data/jenkins
 	minikube ssh sudo -- chown 1000:1000 /data/jenkins
 
-pv:
+pvc:
 	kubectl apply -f pvc.yaml
 
 deploy:
@@ -17,4 +17,4 @@ svc:
 	kubectl apply -f svc.yaml
 	minikube service jenkins --url
 
-all: init pv build deploy svc
+all: build deploy svc
