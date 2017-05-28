@@ -3,6 +3,8 @@ import hudson.slaves.Cloud
 import org.csanchez.jenkins.plugins.kubernetes.PodTemplate
 import org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate
 import org.csanchez.jenkins.plugins.kubernetes.KubernetesCloud
+import javaposse.jobdsl.dsl.DslScriptLoader
+import javaposse.jobdsl.plugin.JenkinsJobManagement
 
 println "--> Configuring Kubernetes Cloud"
 def createContainer(name, image, requestCpu, requestMemory) {
@@ -44,3 +46,9 @@ if (cloudList.getByName(c.name) ) {
   cloudList.remove(cloudList.getByName(c.name))
 }
 cloudList.add(c)
+
+println "--> Creating example job"
+jm = new JenkinsJobManagement(System.out, [:], new File('.'))
+dslScriptLoader = new DslScriptLoader(jm)
+exampleDslFile = new File("/usr/share/jenkins/dsl/example.dsl")
+dslScriptLoader.runScript(exampleDslFile.text)
