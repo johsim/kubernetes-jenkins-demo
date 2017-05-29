@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: jenkins
+  labels: 
+    name: jenkins
+spec: 
+  replicas: 1
+  template: 
+    metadata: 
+      name: jenkins
+      labels: 
+        name: jenkins
+    spec: 
+      containers: 
+        - name: jenkins
+          image: jenkins:demo
+          imagePullPolicy: Never
+          ports: 
+            - containerPort: 8080  # Jenkins GUI
+            - containerPort: 50000 # JNLP for agents to connect
+          env:
+            - name: JAVA_OPTS
+              value: "-Djenkins.install.runSetupWizard=false"
+          volumeMounts: 
+            - name: jenkins-data
+              mountPath: /var/jenkins_home
+            - mountPath: /var/jenkins_home/init.groovy.d
+              name: jenkins-configuration-scripts
+          livenessProbe:
+            httpGet:
+              path: /login
+              port: 8080
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+      volumes: 
+        - name: jenkins-configuration-scripts # Ensure the scripts from the docker image are applied
+          emptyDir: {}
+        - name: jenkins-data
+          persistentVolumeClaim:
+            claimName: jenkins
