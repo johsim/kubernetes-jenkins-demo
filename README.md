@@ -4,13 +4,25 @@
 
 * Minikube
 
+## Intro
+
+Quick intro on minikube
+
+minikube start
+minikube status
+minikube ip
+minikube ssh
+
+Quick intro on kubectl
+
+kubectl get pods
+kubectl create -f <file>
+kubectl apply -f <file>
+kubectl delete -f <file>
+
 ## Steps
 
-make init # Configure minikube to disable dynamic provisioning of volumes (so it will use the one we create by hand)
-          # Creates a directory in the minikube host to store jenkins data
-
-make pvc    # Make the directory /data/jenkins available to kubernetes and claim it to jenkins
-            # pvc.yaml
+make pvc    # Claim 100mi volume for jenkins usage 
 
 make build  # Builds docker image with kubernetes plugin and its configuration
             # docker/build.sh

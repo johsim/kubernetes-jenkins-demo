@@ -10,12 +10,12 @@ pipelineJob('example-pipeline') {
         cps {
             script("""
 node('kubernetes') {
-    stage('ruby') {
+    stage('test1') {
         container('ruby') {
             sh('ruby --version')
         }
     }
-    stage('python') {
+    stage('test2') {
         container('python') {
             sh('python --version')
         }

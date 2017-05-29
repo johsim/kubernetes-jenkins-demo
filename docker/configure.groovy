@@ -41,13 +41,15 @@ c = new KubernetesCloud(
 c.setSkipTlsVerify(true)
 
 cloudList = Jenkins.getInstance().clouds
-// avoid duplicate cloud provider on the cloud list
+
+// Avoid duplicate cloud provider on the cloud list
 if (cloudList.getByName(c.name) ) {
   cloudList.remove(cloudList.getByName(c.name))
 }
+
 cloudList.add(c)
 
-println "--> Creating example job"
+println "--> Creating example jobs"
 jm = new JenkinsJobManagement(System.out, [:], new File('.'))
 dslScriptLoader = new DslScriptLoader(jm)
 exampleDslFile = new File("/usr/share/jenkins/dsl/example.dsl")

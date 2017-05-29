@@ -9,3 +9,5 @@ RUN /usr/local/bin/install-plugins.sh \
 COPY configure.groovy /usr/share/jenkins/ref/init.groovy.d/configure.groovy
 
 COPY example.dsl /usr/share/jenkins/dsl/example.dsl
+
+USER root
