@@ -1,5 +1,12 @@
 # CD Meetup - Jenkins + Kubernetes = <3 ?
 
+## Goals
+
+* Get kubernetes running
+* Build a custom jenkins master docker image with kubernetes plugin + custom configuration + example jobs
+* Deploy to kubernetes
+* Get kubernetes agents provisioned automatically for the example the jobs
+
 ## Requirements
 
 * Minikube
@@ -22,10 +29,10 @@ kubectl delete -f <file>
 
 ## Steps
 
-make pvc    # Claim 100mi volume for jenkins usage 
-
 make build  # Builds docker image with kubernetes plugin and its configuration
             # docker/build.sh
+
+make pvc    # Claim 100mi volume for jenkins usage 
 
 make deploy # Deploys jenkins to kubernetes
             # deploy.yaml 
